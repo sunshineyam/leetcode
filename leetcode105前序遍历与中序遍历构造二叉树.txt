@@ -1,0 +1,43 @@
+题目描述：
+根据一棵树的前序遍历与中序遍历构造二叉树。
+注意:
+你可以假设树中没有重复的元素。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+struct TreeNode* _buildTree(int* preorder, int* ppreindex, int* inorder, int inbegin,int inend){
+    if(inbegin>inend)
+        return NULL;
+    struct TreeNode* root=(struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->val=preorder[*ppreindex];
+    ++(*ppreindex);
+    if(inbegin==inend)
+    {
+        root->left=NULL;
+        root->right=NULL;
+        return root;
+    }
+   int rootindex=inbegin;
+    while(rootindex<inend)//在中序中找到根的位置
+    {
+        if(inorder[rootindex]==root->val)
+            break;
+        else
+            ++rootindex;
+    }
+    assert(rootindex<=inend);
+    //构建左右子树
+    root->left=_buildTree(preorder,ppreindex,inorder,inbegin,rootindex-1);
+    root->right=_buildTree(preorder,ppreindex,inorder,rootindex+1,inend);
+    
+    return root;
+}
+struct TreeNode* buildTree(int* preorder, int preorderSize, int* inorder, int inorderSize) {
+    int index=0;
+    return _buildTree(preorder,&index,inorder,0,inorderSize-1);
+}
