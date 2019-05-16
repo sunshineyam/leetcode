@@ -1,0 +1,38 @@
+题目描述：
+leetcode112路径总和
+给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool _hasPathSum(TreeNode* root, int nowsum , int sum)
+    {
+        if(root == nullptr)
+            return false;
+        //是叶子节点
+        if(root->left == nullptr && root->right == nullptr)
+        {
+            //递归的结束条件
+            if(nowsum+root->val == sum)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            //不是叶子节点，累加
+            int temp = root->val + nowsum;
+            return _hasPathSum(root->left , temp, sum)|| _hasPathSum(root->right , temp, sum);
+        }
+    }
+    bool hasPathSum(TreeNode* root, int sum) {
+        return _hasPathSum(root,0,sum);
+    }
+};
