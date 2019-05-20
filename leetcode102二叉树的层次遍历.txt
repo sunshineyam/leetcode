@@ -1,0 +1,53 @@
+leetcode102二叉树的层次遍历
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> vv;
+        queue<TreeNode*> qnode;
+        queue<int> qlevel;
+        if(root==nullptr)
+            return vv;
+        if(root)
+        {
+            qnode.push(root);
+            qlevel.push(1);
+        }
+        
+        while(!qnode.empty())
+        {
+            TreeNode* node=qnode.front();
+            qnode.pop();
+            int level=qlevel.front();
+            qlevel.pop();
+            
+            /*//每访问一行，则开辟一行的空间
+            if(level>vv.size())
+            {
+                vv.push_back(vector<int>());
+            }*/
+            vv.resize(level);
+            //把每一行的数据放入vector中
+            vv[level-1].push_back(node->val);
+            if(node->left)
+            {
+                qnode.push(node->left);
+                qlevel.push(level+1);
+            }
+            if(node->right)
+            {
+                qnode.push(node->right);
+                qlevel.push(level+1);
+            }
+        }
+        return vv;
+     }
+};
