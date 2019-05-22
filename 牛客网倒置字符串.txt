@@ -1,0 +1,40 @@
+牛客网倒置字符串
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	string str;
+	getline(cin, str);
+	string newstr = "";
+	int i = str.size() - 1;
+	int j;
+	while (i >= 0)
+	{
+		if (str[i] == ' ')
+		{
+			//从后往前链每一个单词
+			j = i + 1;
+			while (str[j] != ' ' && j < str.size())
+			{
+				newstr += str[j];
+				j++;
+			}
+			newstr += ' ';
+		}
+		i--;
+		//遍历到第一个单词
+		if (i == 0)
+		{
+			int temp = i;
+			while (str[temp] != ' ' && temp < str.size())
+			{
+				newstr += str[temp];
+				temp++;
+			}
+		}
+	}
+	cout << newstr;
+	system("pause");
+	return 0;
+}
