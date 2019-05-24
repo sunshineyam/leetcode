@@ -1,0 +1,53 @@
+leetcode236二叉树的最近公共祖先
+给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，
+最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    //递归寻找两个节点的路径，并把路径入栈
+    bool getpath(TreeNode* root,TreeNode* node,stack<TreeNode*>&path)
+    {
+        if(root==NULL)
+            return NULL;
+        path.push(root);
+        if(root==node)
+            return true;
+        if(getpath(root->left,node,path))
+            return true;
+        if(getpath(root->right,node,path))
+            return true;
+        path.pop();
+        return false;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        stack<TreeNode*> ppath;
+        stack<TreeNode*> qpath;
+        
+        getpath(root,p,ppath);
+        getpath(root,q,qpath);
+        //判断哪个栈的size更大，然后pop到两个栈一样大
+        while(ppath.size()!=qpath.size())
+        {
+            if(ppath.size()>qpath.size())
+                ppath.pop();
+            else
+                qpath.pop();
+        }
+        //两个栈一样大，寻找相同的节点
+        while(ppath.top()!=qpath.top())
+        {
+            ppath.pop();
+            qpath.pop();
+        }
+        return ppath.top();
+    }
+};
