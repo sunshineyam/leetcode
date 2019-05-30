@@ -1,0 +1,68 @@
+题目描述：
+给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+有效字符串需满足：
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。
+注意空字符串可被认为是有效字符串。
+class Solution {
+public:
+        bool isValid(string s) {
+       stack<char> MyStack;
+       size_t i=0;
+       while(i<s.size())
+       {
+           if(s[i]=='(' || s[i]=='[' || s[i]=='{')
+           {
+               MyStack.push(s[i]);
+           }
+           else if(!MyStack.empty()) 
+          {
+                   if(s[i]==')')
+                 {
+                       char top=MyStack.top();
+                       if(top=='(')
+                       {
+                           MyStack.pop();
+                       }
+                       else
+                       {
+                           return false;
+                       }
+                 }
+                 else if(s[i]==']')
+                {
+                       char top=MyStack.top();
+                       if(top=='[')
+                       {
+                           MyStack.pop();
+                       }
+                       else
+                       {
+                           return false;
+                       }
+                 }
+                 else if(s[i]=='}')
+                {
+                       char top=MyStack.top();
+                       if(top=='{')
+                       {
+                           MyStack.pop();
+                       }
+                       else
+                       {
+                           return false;
+                       }
+                }
+           }
+           else
+           {
+               //第一个字符是右半边的
+               MyStack.push(s[i]);
+           } 
+           i++;
+       }    
+        if(MyStack.empty()!=0)
+            return true;
+        return false;
+}
+};
