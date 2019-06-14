@@ -1,0 +1,42 @@
+//字符串相加
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int index1=num1.size()-1;
+        int index2=num2.size()-1;
+       //进位
+        int next=0;
+        string retstr;
+        while(index1>=0||index2>=0)
+        {
+            int val1=0;
+            int val2=0;
+            if(index1>=0)
+            {
+                //把每个数字从ASC||码值转换为普通数字
+                val1=num1[index1]-'0';
+                --index1;
+            }
+            if(index2>=0)
+            {
+                val2=num2[index2]-'0';
+                --index2;
+            }
+            int addret=val1+val2+next;
+            if(addret>9)
+            {
+                addret=addret%10;
+                next=1;
+            } 
+            else
+                next=0;
+            //retstr=addret+'0';若这样写，retstr最后只是最后一个字符；
+            retstr+=(addret+'0');
+        }
+        
+        if(next==1)
+            retstr+='1';
+        reverse(retstr.begin(),retstr.end());
+        return retstr;
+    }
+};
