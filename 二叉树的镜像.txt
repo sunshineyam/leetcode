@@ -1,0 +1,42 @@
+二叉树的镜像
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+class Solution {
+public:
+    void Mirror(TreeNode *pRoot) {
+        //递归实现
+        /*if(pRoot==NULL)
+            return;
+        TreeNode* ptmp;
+        ptmp=pRoot->left;
+        pRoot->left=pRoot->right;
+        pRoot->right=ptmp;
+        Mirror(pRoot->left);
+        Mirror(pRoot->right);*/
+         
+        //非递归
+        queue<TreeNode*> qnode;
+        TreeNode* node;
+        if(pRoot==NULL)
+            return;
+        qnode.push(pRoot);
+        while(qnode.size())
+        {
+            node=qnode.front();
+            qnode.pop();
+            if(node->left)
+                qnode.push(node->left);
+            if(node->right)
+                qnode.push(node->right);
+            //把每一个小二叉树看做一个整体，交换它的左右节点
+            swap(node->left,node->right);
+        }
+    }
+};
