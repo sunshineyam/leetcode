@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool IsNumber(char c)
+    {
+        if(c>='0' && c<='9'
+          || c>='a' && c<='z'
+          || c>='A' && c<='Z')
+            return true;
+        return false;
+    }
+    bool isPalindrome(string s) {
+        if(s.empty())
+            return true;
+        int begin=0;
+        int end=s.size()-1;
+        //char* p=(char*)s.c_str();
+        while(begin<end)
+        {
+            while(begin!=end)
+            {
+                if(IsNumber(s[begin]))
+                    break;
+                begin++;
+            }
+            while(begin<end)
+            {
+                if(IsNumber(s[end]))
+                    break;
+                end--;
+            }
+            if(begin<end)
+            {
+                if((s[begin]+32-'a')%32!=(s[end]+32-'a')%32)
+                         return false;
+                 begin++;
+                 end--;
+            }
+        }
+        return true;
+    }
+    
+};
