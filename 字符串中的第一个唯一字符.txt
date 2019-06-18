@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        //利用计数排序思想
+        int CountStr[26]={0};
+        //把数组中的元素记完数放在CountStr数组中
+        for(size_t i=0;i<s.size();i++)
+        {
+            CountStr[s[i]-'a']++;
+        }
+        //在原数组中遍历找第一个不重复的字符 
+        for(size_t i=0;i<s.size();i++)
+        {
+            if(CountStr[s[i]-'a']==1)
+               return i;
+        }
+        return -1;
+    }
+};
