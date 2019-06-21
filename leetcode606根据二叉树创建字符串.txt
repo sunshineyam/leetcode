@@ -1,0 +1,52 @@
+题目描述
+你需要采用前序遍历的方式，将一个二叉树转换成一个由括号和整数组成的字符串。
+
+空节点则用一对空括号 "()" 表示。而且你需要省略所有不影响字符串与原始二叉树之间的一对一映射关系的空括号对。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/construct-string-from-binary-tree
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+void _tree2str(struct TreeNode* t,char* str) {
+    if(t==NULL)
+        return;
+    //把根强制类型转换为字符型
+        char buff[12];
+    sprintf(buff,"%d",t->val);
+        strcat(str,buff);
+    //拷左子树
+    if(t->left ==NULL)
+    {
+        if(t->right==NULL)
+            return;
+        else
+            strcat(str,"()");
+    }
+    else
+    {
+        strcat(str,"(");
+        _tree2str(t->left,str);
+        strcat(str,")");
+    }
+    //拷右子树
+    if(t->right )
+    {
+        strcat(str,"(");
+        _tree2str(t->right,str);
+        strcat(str,")");
+    }
+    else
+        return;
+}
+char* tree2str(struct TreeNode* t) {
+   char* str = (char*)malloc(1024*1024);
+    _tree2str(t,str);
+    return str;
+}
