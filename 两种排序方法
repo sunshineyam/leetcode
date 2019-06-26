@@ -1,0 +1,107 @@
+题目描述：
+考拉有n个字符串字符串，任意两个字符串长度都是不同的。考拉最近学习到有两种字符串的排序方法： 1.根据字符串的字典序排序。例如：
+"car" < "carriage" < "cats" < "doggies < "koala"
+2.根据字符串的长度排序。例如：
+"car" < "cats" < "koala" < "doggies" < "carriage"
+考拉想知道自己的这些字符串排列顺序是否满足这两种排序方法，考拉要忙着吃树叶，所以需要你来帮忙验证。
+//解法1
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+//判断按长度排序
+bool Islength(vector<string> lv)
+{
+    for(size_t i=0;i<lv.size()-1;i++)
+    {
+        if(lv[i].size()>lv[i+1].size())
+        {
+            return false;
+        }
+    }
+    return true;
+}
+//判断字典排序
+bool Isdict(vector<string> dv)
+{
+    for(size_t i=0;i<dv.size()-1;i++)
+    {
+        if(dv[i]>dv[i+1])
+            return false;
+    }
+    return true;
+}
+int main()
+{
+    int n;
+    while(cin>>n)
+    {
+        vector<string> v;
+        string str;
+        for(size_t i=0;i<n;i++)
+        {
+            cin>>str;
+            v.push_back(str);
+        }
+        if(Isdict(v)==true && Islength(v)==true)
+            cout<<"both"<<endl;
+        else if(Isdict(v)==false && Islength(v)==true)
+            cout<<"lengths"<<endl;
+        else if(Isdict(v)==true && Islength(v)==false)
+            cout<<"lexicographically"<<endl;
+        else
+            cout<<"none"<<endl;
+    }
+    return 0;
+}
+//解法2：
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int main()
+{
+    int n;
+    while(cin>>n)
+    {
+        string str;
+        vector<string> v;
+        for(int i=0;i<n;i++)
+        {
+             cin>>str;
+             v.push_back(str);
+        }
+        int size=0;
+        int maxsize=0;
+        int length=0;
+        int dict=0;
+        for(int i=0;i<v.size()-1;i++)
+        {
+                //判断是不是按长度排序
+                if(v[i].size()>v[i+1].size())
+                {
+                    length=1;
+                    break;
+                }
+        }
+        for(int i=0;i<v.size()-1;i++)
+        {
+                //判断是不是按字典排序
+                if(v[i]>v[i+1])
+                {
+                    //不是按字典排序
+                    dict=1;
+                    break;
+                }
+        }
+        if(dict==0 && length==0)
+            cout<<"both"<<endl;
+        else if(dict==1 && length==0)
+            cout<<"lengths"<<endl;
+        else if(dict==0 && length==1)
+            cout<<"lexicographically"<<endl;
+        else
+            cout<<"none"<<endl;
+        }
+    return 0;
+}
