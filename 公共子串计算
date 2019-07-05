@@ -1,0 +1,28 @@
+题目描述：
+计算两个字符串的最大公共字串的长度，字符不区分大小写
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+    string a,b;
+    while(cin>> a >> b)
+    {
+        string maxstr;
+        if(a.size()>b.size())
+            swap(a,b);
+        for(int i=0;i<a.size();i++)
+        {
+            for(int j=i;j<a.size();j++)
+            {
+                string newstr=a.substr(i,j-i+1);
+                if(int(b.find(newstr))<0)
+                    break;
+                else if(newstr.size()>maxstr.size())
+                    maxstr=newstr;
+            }
+        }
+        cout<<maxstr.size()<<endl;
+    }
+    return 0;
+}
