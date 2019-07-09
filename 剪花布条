@@ -1,0 +1,41 @@
+剪花布条
+一块花布条，里面有些图案，另有一块直接可用的小饰条，里面也有一些图案。对于给定的花布条和小饰条，计算一下能从花布条中尽可能剪出几块小饰条来呢？
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+    string s,t;
+    while(cin>>s>>t)
+    {
+        string tempstr="";
+        int i=0;
+        int count = 0;
+        int t_len = t.size();
+        while(i < s.size())
+        {
+            tempstr = s.substr(i,t_len);
+            int j = 0;
+            int flag = 0;
+            while(j < t_len)
+            {
+                if(tempstr[j] != t[j])
+                {
+                    flag = 1;
+                    break;
+                }
+                else
+                    j++;
+            }
+            if(flag == 0)
+            {
+                count++;
+                i+=t_len;
+            }
+            else
+                i++;
+        }
+        cout<<count<<endl;
+    }
+    return 0;
+}
