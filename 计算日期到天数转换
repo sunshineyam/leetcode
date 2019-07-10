@@ -1,0 +1,36 @@
+计算日期到天数转换
+根据输入的日期，计算是这一年的第几天。。
+#include <iostream>
+using namespace std;
+bool IsLeap(int year)
+{
+    if(year%4 == 0 && year%100 != 0)
+        return true;
+    else if(year%400 == 0)
+        return true;
+    else
+        return false;
+}
+int main()
+{
+    int year,month,day;
+    while(cin >> year >> month >> day)
+    {
+        int d[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+        int sum = 0;
+        for(int i = 1; i <= month-1; i++)
+        {
+            sum += d[i];
+        }
+        if(IsLeap(year))
+        {
+            sum += (1 + day);
+        }
+        else
+        {
+            sum += day;
+        }
+        cout << sum << endl;
+    }
+    return 0;
+}
