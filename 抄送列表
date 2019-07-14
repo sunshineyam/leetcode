@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+#include <unordered_set>
+using namespace std;
+int main()
+{
+	string s;
+	while (getline(cin, s))
+	{
+		unordered_set<string> names;
+		string name = "";
+		bool inBracket = false;
+		for (auto& c : s)
+		{
+			if (c == '\"')
+			{
+				inBracket = !inBracket;
+			}
+			else if (c == ',')
+			{
+				if (inBracket) name += c;
+				else
+				{
+					names.emplace(name);
+					name = "";
+				}
+			}
+			else
+			{
+				name += c;
+			}
+		}
+		names.emplace(name);
+		getline(cin, name);
+		cout << (names.find(name) != names.end() ? "Ignore" : "Important!") << endl;
+	}
+	return 0;
+}
