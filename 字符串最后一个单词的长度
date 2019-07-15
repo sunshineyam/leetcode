@@ -1,0 +1,32 @@
+字符串最后一个单词的长度
+计算字符串最后一个单词的长度，单词以空格隔开。
+#include <iostream>
+#include <string>
+using namespace std;
+void LastStrLength(string s)
+{
+    /*size_t count=0;
+    int size=s.size()-1;
+    while(s[size]!=' ' && size>=0)
+    {
+            count++;
+            size--;
+    }
+    cout<<count<<endl;*/
+     
+}
+int main()
+{
+    /*string s1;
+    while(cin>>s1)
+    {
+        LastStrLength(s1);
+    }*/
+    string line;
+    while(getline(cin,line))
+    {
+        size_t pos=line.rfind(' ');
+        cout<<line.size()-pos-1<<endl;
+    }
+    return 0;
+}
