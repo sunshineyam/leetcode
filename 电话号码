@@ -1,0 +1,63 @@
+电话号码：
+上图是一个电话的九宫格，如你所见一个数字对应一些字母，因此在国外企业喜欢把电话号码设计成与自己公司名字相对应。例如公司的Help Desk号码是4357，因为4对应H、3对应E、5对应L、7对应P，因此4357就是HELP。同理，TUT-GLOP就代表888-4567、310-GINO代表310-4466。
+NowCoder刚进入外企，并不习惯这样的命名方式，现在给你一串电话号码列表，请你帮他转换成数字形式的号码，并去除重复的部分。
+#include <iostream>
+#include <string>
+#include <set>
+using namespace std;
+char Phone(char c)
+{
+	char ret;
+	if (c >= 'A' && c <= 'C'){ ret = '2'; return ret; }
+	else if (c >= 'D' && c <= 'F'){ ret = '3'; return ret; }
+	else if (c >= 'G' && c <= 'I'){ ret = '4'; return ret; }
+	else if (c >= 'J' && c <= 'L'){ ret = '5'; return ret; }
+	else if (c >= 'M' && c <= 'O'){ ret = '6'; return ret; }
+	else if (c >= 'P' && c <= 'S'){ ret = '7'; return ret; }
+	else if (c >= 'T' && c <= 'V'){ ret = '8'; return ret; }
+	else { ret = '9'; return ret; }
+}
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		set<string> myset;
+		for (int i = 0; i < n; i++)
+		{
+			string newstr = "";
+			string str;
+			cin >> str;
+			int count = 0;
+			for (int j = 0; j < str.size(); j++)
+			{
+				if (str[j] >= 'A' && str[j] <= 'Z')
+				{
+					newstr += Phone(str[j]);
+					count++;
+					if (count == 3)
+					{
+						newstr += '-';
+					}
+				}
+				else if (str[j] >= '0' && str[j] <= '9')
+				{
+					newstr += str[j];
+					count++;
+					if (count == 3)
+					{
+						newstr += '-';
+					}
+				}
+			}
+			myset.insert(newstr);
+		}
+		for (auto it = myset.begin(); it != myset.end(); it++)
+		{
+			cout << *it << endl;
+		}
+		cout << endl;
+	}
+	system("pause");
+	return 0;
+}
