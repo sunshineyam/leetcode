@@ -1,0 +1,47 @@
+中级单词倒排
+对字符串中的所有单词进行倒排。
+说明：
+1、每个单词是以26个大写或小写英文字母构成；
+2、非构成单词的字符均视为单词间隔符；
+3、要求倒排后的单词间隔符以一个空格表示；如果原字符串中相邻单词间有多个间隔符时，倒排转换后也只允许出现一个空格间隔符；
+4、每个单词最长20个字母；
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+int main()
+{
+    string str;
+    while(getline(cin,str))
+    {
+        vector<string> v;
+        string temp="";
+        for(int i = 0; i < str.size(); i++)
+        {
+            if((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122))
+            {
+                temp += str[i];
+            }
+            else
+            {
+                if(temp.size()>0)
+                {
+                    //遇到不是字母，并且字符串长度大于0，就把单词放进vector中
+                    v.push_back(temp);
+                    temp.clear();
+                }
+            }
+        }
+        if(temp.size()>0)
+            v.push_back(temp);
+        for(int i = v.size()-1; i >= 0; i--)
+        {
+            if(i > 0)
+                cout << v[i] << ' ';
+            else
+                cout << v[i];
+        }
+        cout << endl;
+    }
+    return 0;
+}
