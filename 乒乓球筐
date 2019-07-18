@@ -1,0 +1,38 @@
+乒乓球筐
+nowcoder有两盒（A、B）乒乓球，有红双喜的、有亚力亚的……现在他需要判别A盒是否包含了B盒中所有的种类，并且每种球的数量不少于B盒中的数量，该怎么办呢？ 
+#include <iostream>
+#include <string>
+#include <map>
+using namespace std;
+int main()
+{
+    string A,B;
+    while(cin>>A>>B)
+    {
+        map<char,int> amap;
+        map<char,int> bmap;
+        for(auto c : A)
+        {
+            amap[c]++;
+        }
+        for(auto c : B)
+        {
+            bmap[c]++;
+        }
+        bool flag = true;
+        for(auto it = bmap.begin(); it != bmap.end(); it++)
+        {
+            if(amap[it->first] < it->second)
+            {
+                flag = false;
+                break;
+            }
+        }
+        if(flag == true)
+            cout <<"Yes" << endl;
+        else
+            cout << "No" << endl;
+    }
+    return 0;
+}
+
