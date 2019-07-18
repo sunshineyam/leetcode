@@ -1,0 +1,61 @@
+查找兄弟单词
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+int main()
+{
+    int n;
+    while(cin>>n)
+    {
+        vector<string> dic;
+        for(int i = 0; i < n; i++)
+        {
+            string s;
+            cin >> s;
+            dic.push_back(s);
+        }
+        sort(dic.begin(), dic.end());//对字典排序
+        string str;//目标单词
+        cin >> str;
+        int num;//第num个兄弟单词
+        cin >> num;
+        string temp = "";
+        string ptemp = "";
+        vector<string> brother;
+        int count = 0;
+        for(int i = 0; i < dic.size(); i++)
+        {
+               temp = dic[i];
+               string pstr = str;
+               if(temp.size() == pstr.size())
+               {
+                   if(pstr != temp)
+                   {
+                        sort(pstr.begin(), pstr.end());//排序目标单词进行比较
+                        ptemp = temp;
+                        sort(temp.begin(),temp.end());
+                        if(temp == pstr)
+                        {
+                            count++;
+                            brother.push_back(ptemp);
+                        }
+                       ptemp.clear();
+                   }
+               }
+               pstr.clear();
+               temp.clear();
+       }
+        if(brother.empty())
+            cout << 0 << endl;
+        if(!brother.empty() && num > count)
+            cout << count << endl;
+        if(!brother.empty() && num <= count)
+        {
+            cout << count << endl;
+            cout << brother[num-1] << endl;
+        }
+    }
+    return 0;
+}
