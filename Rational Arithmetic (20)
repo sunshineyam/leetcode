@@ -1,0 +1,117 @@
+Rational Arithmetic (20)
+For two rational numbers, your task is to implement the basic arithmetics, that is, to calculate their sum, difference,
+product and quotient. 
+#include <iostream>
+#include <algorithm>
+using namespace std;
+struct Fraction
+{
+    long long up, down;
+};
+//加法
+Fraction add(Fraction a, Fraction b)
+{
+    Fraction result;
+    result.down = a.down*b.down;//分母
+    result.up = a.up*b.down + b.up*a.down;
+    return result;
+}
+//减法
+Fraction sub(Fraction a, Fraction b)
+{
+    Fraction result;
+    result.down = a.down*b.down;
+    result.up = a.up*b.down - b.up*a.down;
+    return result;
+}
+//乘法
+Fraction mul(Fraction a, Fraction b)
+{
+    Fraction result;
+    result.down = a.down*b.down;
+    result.up = a.up*b.up;
+    return result;
+}
+//除法
+Fraction div(Fraction a, Fraction b)
+{
+    Fraction result;
+    result.down = a.down*b.up;
+    result.up = a.up*b.down;
+    return result;
+}
+//求最大公约数，约分
+long long gcd(long long a, long long b)
+{                   
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a%b);
+}
+Fraction reduce(Fraction result)
+{
+    if (result.down < 0)
+    {
+        result.up = -result.up;
+        result.down = -result.down;
+    }
+    if (result.up == 0)
+        result.down = 1;
+    else
+    {
+        long long ret = gcd(abs(result.up), abs(result.down));
+        result.up /= ret;
+        result.down /= ret;
+    }
+    return result;
+}
+void PrintResult(Fraction result)
+{
+    result = reduce(result);
+    if (result.up<0)
+        cout << "(";
+    //假分数化为带分数
+    if (abs(result.up) > result.down)
+    {
+        if (result.up%result.down == 0)
+            cout << result.up / result.down;
+        else
+            cout << result.up / result.down << " " << abs(result.up) % result.down << "/" << result.down;
+    }
+    //分母为1是整数
+    else if (result.down == 1)
+    {
+        cout << result.up;
+    }
+    else
+        cout << result.up << "/" << result.down;
+    if (result.up < 0)
+        cout << ")";
+}
+/*int main()
+{
+    Fraction a, b;
+    scanf("%lld/%lld %lld/%lld", &a.up, &a.down, &b.up, &b.down);
+    PrintResult(a); cout << "+"; PrintResult(b); cout << "="; PrintResult(add(a, b));cout<<'\n';
+    PrintResult(a); cout << "-"; PrintResult(b); cout << "="; PrintResult(sub(a, b));cout<<'\n';
+    PrintResult(a); cout << "*"; PrintResult(b); cout << "="; PrintResult(mul(a, b));cout<<'\n';
+    PrintResult(a); cout << "/"; PrintResult(b); cout << "=";
+    if (b.up == 0)
+        cout << "Inf"<<'\n';
+    else
+    {
+        PrintResult(div(a, b));cout<<'\n';
+    }
+    return 0;
+}*/
+int main(){
+    Fraction a,b;
+    scanf("%lld/%lld %lld/%lld",&a.up,&a.down,&b.up,&b.down);
+    PrintResult(a);cout<<" + ";PrintResult(b);cout<<" = ";PrintResult(add(a,b));cout<<endl;
+    PrintResult(a);cout<<" - ";PrintResult(b);cout<<" = ";PrintResult(sub(a,b));cout<<endl;
+    PrintResult(a);cout<<" * ";PrintResult(b);cout<<" = ";PrintResult(mul(a,b));cout<<endl;
+    PrintResult(a);cout<<" / ";PrintResult(b);cout<<" = ";
+    if(b.up==0) cout<<"Inf"<<endl;
+    else{PrintResult(div(a,b));cout<<endl;}   
+    return 0;
+}
