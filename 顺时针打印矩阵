@@ -1,0 +1,71 @@
+ 顺时针打印矩阵
+对于一个矩阵，请设计一个算法从左上角(mat[0][0])开始，顺时针打印矩阵元素。
+给定int矩阵mat,以及它的维数nxm，请返回一个数组，数组中的元素为矩阵元素的顺时针输出。 
+#include <iostream>
+#include <vector>
+using namespace std;
+class Printer {
+public:
+    vector<int> v;
+    void Print(vector<vector<int>> mat, int x1, int y1, int x2, int y2)
+    {
+        //最后一圈只剩一个数
+        if (x1 == x2 && y1 == y2)
+        {
+            v.push_back(mat[x1][y1]);
+            return;
+        }
+        //最后一圈有一排数
+        else if (x1 == x2 && y1 != y2)
+        {
+            for (int y = y1; y <= y2; y++)
+            {
+                v.push_back(mat[x1][y]);
+            }
+            return;
+        }
+        //最后一圈有一列数
+        else if (x1 != x2 && y1 == y2)
+        {
+            for (int x = x1; x <= x2; x++)
+            {
+                v.push_back(mat[x][y1]);
+            }
+            return;
+        }
+        //从左往右
+        for (int y = y1; y < y2; y++)
+        {
+            v.push_back(mat[x1][y]);
+        }
+        //从上往下
+        for (int x = x1; x < x2; x++)
+        {
+            v.push_back(mat[x][y2]);
+        }
+        //从右往左
+        for (int y = y2; y > y1; y--)
+        {
+            v.push_back(mat[x2][y]);
+        }
+        //从下往上
+        for (int x = x2; x > x1; x--)
+        {
+            v.push_back(mat[x][y1]);
+        }
+    }
+    vector<int> clockwisePrint(vector<vector<int> > mat, int n, int m) {
+        // write code here
+        int start_x = 0, start_y = 0;
+        int end_x = n - 1, end_y = m - 1;
+        while (start_x <= end_x && start_y <= end_y)
+        {
+            Print(mat, start_x, start_y, end_x, end_y);
+            start_x++;
+            start_y++;
+            end_x--;
+            end_y--;
+        }
+        return v;
+    }
+};
