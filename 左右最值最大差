@@ -1,0 +1,40 @@
+左右最值最大差 
+给定一个长度为N(N>1)的整型数组A，可以将A划分成左右两个部分，左部分A[0..K]，右部分A[K+1..N-1]，K可以取值的范围是[0,N-2]。求这么多划分方案中，左部分中的最大值减去右部分最大值的绝对值，最大是多少？
+给定整数数组A和数组的大小n，请返回题目所求的答案。 
+class MaxGap {
+public:
+    int findMaxGap(vector<int> A, int n) {
+        // write code here
+        int maxleft = 0,maxright = 0,dif = 0,temp = 0;
+        //k为中间滑动的标尺
+        for(int k = 0; k < n-1; k++)
+        {
+            //判断是不是第一次从左至右遍历,若不是，只需要把新加进来的数和左边区间最大的比较，然后取最大的数
+            if(dif != 0 && A[k] > maxleft)
+            {
+                maxleft = A[k];
+            }
+            else
+            {
+                maxleft = A[0];
+                //找出左边最大的值[0,k][k+1,n-1]
+                for(int i = 1; i <= k; i++)
+                {
+                    if(A[i] > maxleft)
+                        maxleft = A[i];
+                }
+            }
+            maxright = A[k+1];
+            //根据区间范围动态找出右边区间的最大值
+            for(int j = k+1; j < n; j++)
+            {
+                if(A[j] > maxright)
+                    maxright = A[j];
+            }
+            temp = abs(maxleft - maxright);
+            if(temp > dif)
+                dif = temp;
+        }
+        return dif;
+    }
+};
