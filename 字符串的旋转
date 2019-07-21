@@ -1,0 +1,30 @@
+字符串的旋转
+对于一个字符串，和字符串中的某一位置，请设计一个算法，将包括i位置在内的左侧部分移动到右边，将右侧部分移动到左边。
+给定字符串A和它的长度n以及特定位置p，请返回旋转后的结果。 
+class StringRotation {
+public:
+    string rotateString(string A, int n, int p) {
+        // write code here
+        if(n == 0)
+        {
+            return 0;
+        }
+        /*string str1="";
+        string str2="";
+        string str="";
+        for(size_t i=p+1;i<n;i++)
+        {
+            str1+=A[i];
+        }
+        for(size_t j=0;j<=p;j++)
+        {
+            str2+=A[j];
+        }
+        str+=(str1+=str2);
+        return str;*/
+        string B;
+        B=A.substr(p+1)+A.substr(0,p+1);
+        return B;
+    }
+};
+
