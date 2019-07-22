@@ -1,0 +1,46 @@
+mkdir
+工作中，每当要部署一台新机器的时候，就意味着有一堆目录需要创建。例如要创建目录“/usr/local/bin”，就需要此次创建“/usr”、“/usr/local”以及“/usr/local/bin”。好在，Linux下mkdir提供了强大的“-p”选项，只要一条命令“mkdir -p /usr/local/bin”就能自动创建需要的上级目录。
+现在给你一些需要创建的文件夹目录，请你帮忙生成相应的“mkdir -p”命令。
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+int main()
+{
+    int n;
+    while (cin >> n)
+    {
+        string str;
+        vector<string> v;
+        for (int i = 0; i < n; i++)
+        {
+            cin >> str;
+            v.push_back(str);
+        }
+        sort(v.begin(), v.end());
+        vector<bool> flag(n, true);
+        for (int i = 0; i+1 < v.size(); i++)
+        {
+            //前后串相同
+            if (v[i] == v[i + 1])
+            {
+                flag[i] = false;
+            }
+            //前串是后串的子串,并且后串的最后一位是/
+            else if (v[i].size() < v[i + 1].size() &&
+                     v[i] == v[i + 1].substr(0, v[i].size()) 
+                    && v[i+1][v[i].size()] == '/')
+            {
+                flag[i] = false;
+            }
+        }
+        for (int i = 0; i < v.size(); i++)
+        {
+            if(flag[i])
+                cout << "mkdir -p"  << ' ' << v[i] << endl;
+        }
+        cout << endl;
+    }
+    return 0;
+}
