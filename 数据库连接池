@@ -1,0 +1,44 @@
+数据库连接池
+Web系统通常会频繁地访问数据库，如果每次访问都创建新连接，性能会很差。为了提高性能，架构师决定复用已经创建的连接。当收到请求，并且连接池中没有剩余可用的连接时，系统会创建一个新连接，当请求处理完成时该连接会被放入连接池中，供后续请求使用。
+现在提供你处理请求的日志，请你分析一下连接池最多需要创建多少个连接。 
+#include <iostream>
+#include <unordered_set>
+#include <string>
+using namespace std;
+int main()
+{
+    int n;
+    while(cin >> n)
+    {
+        string id, op;
+        //定义ordered_set存储id,通过控制size的大小，输出连接请求的数量
+        unordered_set<string> data;
+        int count = 0;
+        string array[] = {"connect","disconnect"};
+        while(n--)
+        {
+            cin >> id >> op;
+            //查找相同id，出现disconnect时，就删除此id
+            //第一次查找时，data中还没有插入数据，所以没找到，直接跳到else
+            if(data.find(id) != data.end())
+            {
+                if(op == array[1])
+                    data.erase(id);
+            }
+            else
+            {
+                if(op == array[0])
+                {
+                    //count值只有和size相等时，才能保证之前的connect被用了
+                    if(count == data.size())
+                    {
+                        count++;
+                    }
+                    data.insert(id);
+                }
+            }
+        }
+        cout << count << endl;
+    }
+    return 0;
+}
