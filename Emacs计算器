@@ -1,0 +1,55 @@
+Emacs号称神的编辑器，它自带了一个计算器。与其他计算器不同，它是基于后缀表达式的，即运算符在操作数的后面。例如“2 3 +”等价于中缀表达式的“2 + 3”。
+// write your code here cpp
+// write your code here cpp
+#include <iostream>
+#include <cstdlib>
+#include <vector>
+#include <string>
+#include <stack>
+using namespace std;
+int main()
+{
+    int n;
+    while(cin >> n)
+    {
+        vector<string> v;
+        v.resize(n);
+        stack<int> s;
+        string str;
+        for(int i = 0; i < n; i++)
+        {
+            cin >> v[i];
+        }
+        for(int i = 0; i < n; i++)
+        {
+            str = v[i];
+            if(!(str == "+" || str == "-" || str == "*" || str == "/"))
+                //字符串转整数，注意是c语言的函数，要加上c_str
+                s.push(atoi(str.c_str()));
+            else
+            {
+                int right = s.top();
+                s.pop();
+                int left = s.top();
+                s.pop();
+                //把每次运算完的和入栈
+                if(str == "+")
+                    s.push(right+left);
+                else if(str == "-")
+                    s.push(left-right);
+                else if(str == "*")
+                    s.push(left*right);
+                else if(str == "/")
+                {
+                    if(right != 0)
+                        s.push(left/right);
+                    else
+                        return 0;
+                }
+            }
+            str = "";
+        }
+        cout << s.top() << endl;
+    }
+    return 0;
+}
