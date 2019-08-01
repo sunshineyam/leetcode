@@ -1,0 +1,46 @@
+#define _CRT_SECURE_NO_DEPRECATE
+#include <stdio.h>
+#include <stdlib.h>
+bool IsPrime(int num)
+{
+	for (int i = 2; i <= num / 2; i++)
+	{
+		if (num % i == 0)
+			return false;
+	}
+	return true;
+}
+int main()
+{
+	//int array[100];
+	//int j = 0;
+	////循环n次不等同于第n个素数，所以循环次数要比数组的长度大得多
+	//for (int i = 2; i < 10000; i++)
+	//{
+	//	if (j < 100)
+	//	{
+	//		if (IsPrime(i))
+	//		{
+	//			array[j] = i;
+	//			j++;
+	//		}
+	//	}
+	//}
+	//printf("%d\n", array[49]);
+	int n = 5;
+	int a = 0, b = 2;
+	while (n != a)
+	{
+		if (IsPrime(b))
+		{
+			//控制了素数循环的次数
+			a++;
+		}
+		//判断b是不是素数
+		b++;
+	}
+	//b-1是因为最后一次循环跳出时总会多加一次
+	printf("%d ", b-1);
+	system("pause");
+	return 0;
+}
