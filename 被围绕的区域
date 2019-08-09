@@ -1,0 +1,54 @@
+被围绕的区域：
+
+class Solution {
+public:
+    void DFS(vector<vector<char>>& board, int row, int col, int x, int y)
+    {
+        static int pos[4][2] ={{0,1},{1,0},{0,-1},{-1,0}};
+        board[x][y] = '*';
+        //开始索引周围四个位置
+        for(int i = 0; i < 4; i++)
+        {
+            int nx = x + pos[i][0];
+            int ny = y + pos[i][1];
+            if(nx < 0 || nx >= row || ny < 0 || ny >= col)
+                continue;
+            //把连通的O递归
+            if(board[nx][ny] != '*' && board[nx][ny] != 'X')
+                DFS(board, row, col, nx, ny);
+        }
+    }
+    void solve(vector<vector<char>>& board) {
+        if(board.empty())
+            return;
+        int row = board.size();
+        int col = board[0].size();
+        //1.找到最后一行,第一行的O
+        for(int i = 0; i < col; i++)
+        {
+            if(board[0][i] == 'O')
+                DFS(board, row, col, 0, i);
+            if(board[row-1][i] == 'O')
+                DFS(board, row, col, row-1, i);
+        }
+        //2.找到第一列，最后一列的O
+        for(int i = 0; i < row; i++)
+        {
+            if(board[i][0] == 'O')
+                DFS(board, row, col, i, 0);
+            if(board[i][col-1] == 'O')
+                DFS(board, row, col, i, col-1);
+        }
+        //把标记为*的重新改成O,其他是O的改成X
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                if(board[i][j] == '*')
+                    board[i][j] = 'O';
+                else if(board[i][j] == 'O')
+                    board[i][j] = 'X';
+            }
+        }
+    }
+};
