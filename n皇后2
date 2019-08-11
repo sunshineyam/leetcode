@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool IsPut(vector<pair<int, int>>& curMethod, int curRow, int col)
+    {
+        for(pair<int, int>& i : curMethod)
+        {
+            if(i.second == col || i.first + i.second == curRow + col || i.first - i.second == curRow - col)
+                return false;
+        }
+        return true;
+    }
+    void DFS(vector<vector<pair<int, int>>>& allMethod, vector<pair<int, int>>& curMethod, int curRow, int n)
+    {
+        if(curRow == n)
+            allMethod.push_back(curMethod);
+        for(int i = 0; i < n; i++)
+        {
+            if(IsPut(curMethod, curRow, i))
+            {
+                curMethod.push_back(make_pair(curRow, i));
+                DFS(allMethod, curMethod, curRow+1, n);
+                curMethod.pop_back();
+            }
+        }
+    }
+    int totalNQueens(int n) {
+        vector<vector<pair<int, int>>> allMethod;
+        vector<pair<int, int>> curMethod;
+        DFS(allMethod, curMethod, 0, n);
+        int num = allMethod.size();
+        return num;
+    }
+};
