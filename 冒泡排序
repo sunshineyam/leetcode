@@ -1,0 +1,31 @@
+void Swap(int& x, int& y)
+{
+	int temp = x;
+	x = y;
+	y = temp;
+}
+//冒泡
+void BubblerSort(int *a, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j+1 < n-i; j++)
+		{
+			if (a[j] > a[j + 1])
+			{
+				Swap(a[j], a[j + 1]);
+			}
+		}
+	}
+}
+int main()
+{
+	int array[6] = { 3, 2, 5, 1, 4, 5 };
+	for (auto &e : array)
+	{
+		cout << e << ' ';
+	}
+	cout << endl;
+	system("pause");
+	return 0;
+}
