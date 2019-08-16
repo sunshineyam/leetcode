@@ -1,0 +1,35 @@
+最大连续比特数
+【求最大连续bit数】 功能: 求一个byte数字对应的二进制数字中1的最大连续数，
+例如3的二进制为00000011，最大连续2个1    
+输入: 一个byte型的数字    
+输出: 无     
+返回: 对应的二进制数字中1的最大连续数 
+#include <iostream> 
+#include <string> 
+#include <cmath> 
+using namespace std; 
+int main() 
+{    
+	int n;       
+	while(cin>>n)    
+	{        
+		int maxcount=0;        
+		int count=0;        
+		while(n)        
+		{            
+			if(n&1)            
+			{                
+				count++;                
+				//注意如果n的补码是全1的话，若在else中取最大值，则永远得不到maxcount的值                
+				maxcount=max(count,maxcount);            
+			}            
+			else            
+			{              
+				count=0;            
+			}            
+			n=n>>1;        
+		}        
+		cout<<maxcount<<endl;    
+	}    
+		return 0;
+}
