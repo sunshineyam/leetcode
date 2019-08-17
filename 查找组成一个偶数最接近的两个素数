@@ -1,0 +1,96 @@
+题目描述：查找组成一个偶数最接近的两个素数 
+【查找组成一个偶数最接近的两个素数】
+任意一个偶数（大于2）都可以由2个素数组成，组成偶数的2个素数有很多种情况，本题目要求输出组成指定偶数的两个素 数差值最小的素数对 
+
+#include <iostream> 
+using namespace std; 
+/*int main() 
+{    
+	vector<int> v;    
+	int n;    
+	cin>>n;    
+	int num1,num2;    
+	int sum=0;    
+	int minsum=0;   
+	while(cin>>n)    
+	{         
+		 //找出比n小的素数        
+		for(int i=2;i<=n;i++)        
+		{            
+			int flag=0;
+			for(int j=2;j<i;i++)            
+			{                
+				if(i%j==0)                
+				{                    
+					flag=1;                    
+					break;                
+				}            
+			}            
+			if(flag==0)            
+			{                
+				v.push_back(i);            
+			}        
+		}        
+		//找出符合题意的素数组合 
+		for(int i=0;i<v.size();i++)        
+		{            
+			for(int j=1;j<v.size();j++)            
+			{               
+				if(v[i]+v[i]==n)                
+				{                    
+					sum=abs(v[j]-v[i]);                    
+					if(sum<=minsum)                   
+					{                        
+					 minsum=sum;                        
+					 num1=v[i];                        
+					 num2=v[j];                    
+					}                    
+					else                        
+						sum=0;                
+				}           
+			 }        
+		}       
+		cout<<num1<<endl;        
+		cout<<num2<<endl;    
+	}    
+	return 0; 
+	}*/
+	
+	
+	//判断一个数是否为素数    
+	bool JudgIsPrime(const int a)    
+	{        
+		for(int i = 2;i <= a/2; i++)        
+		{            
+			if(a % i == 0)                
+				return 0;        
+		}        
+		return 1;    
+	}    
+	int main()    
+	{        
+		int b;        
+		while(cin >> b)       
+		{            
+			//非偶数异常输入            
+			if(b % 2 != 0)                
+			return 0;            
+			int j,distance,t = 0;            
+			int min = 0;            
+			for(j = 2; j <= b/2; j++)            
+			{
+				if (JudgIsPrime(j) && JudgIsPrime(b - j)) 
+				{                    
+				   distance = b - j -j;                    
+				   if (min==0 || min > distance)                    
+				   {                        
+					   min = distance;                        
+					   t = j;                    
+				   }                
+				}            
+			}            
+			cout << t << endl;            
+			cout << (b - t) << endl;           
+		}        
+		return 0; 
+	}
