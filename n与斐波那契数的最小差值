@@ -1,0 +1,42 @@
+题目描述：
+给定一个正整数n，计算n与斐波那契数的最小差值(绝对值)
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main()
+{
+    int n;
+    while (cin >> n)
+    {
+        vector<int> v(n + 1, 0);
+        int dif;
+        if (n == 1)
+        {
+            dif = 0;
+            cout << dif << endl;
+            return 0;
+        }
+        if (n == 0)
+        {
+            dif = 0;
+            cout << dif << endl;
+            return 0;
+        }
+        v[0] = 0;
+        v[1] = 1;
+        int cur = 1;
+        int prev = 0;
+        for (int i = 2; i < v.size(); i++)
+        {
+            v[i] = v[i - 1] + v[i - 2];
+            cur = v[i];
+            prev = v[i - 1];
+            if (n <= v[i])
+                break;
+        }
+        dif = min(abs(n - cur), abs(n - prev));
+        cout << dif << endl;
+    }
+    return 0;
+}
