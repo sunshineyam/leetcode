@@ -1,0 +1,23 @@
+找出以d或e结尾的单词，然后再输出每个单词出现的次数
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+using namespace std;
+int main()
+{
+	string str;
+	string temp = "";
+	unordered_map<string, int> mmap;
+	vector<string> v;
+	char c = ',';
+	while (cin >> str)
+	{
+		if (str[str.size() - 1] == 'd' || str[str.size() - 1] == 'e')
+				mmap[str]++;
+		for (auto& e : mmap)
+		{
+			cout << e.first << "=" << e.second << ",";
+		}
+	}
+}
