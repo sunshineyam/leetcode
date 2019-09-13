@@ -1,0 +1,25 @@
+//字符集合
+//题目描述：输入一个字符串，求出该字符串包含的字符集合
+#include <iostream>
+#include <string>
+#include <unordered_map>
+using namespace std;
+int main()
+{
+	string str = "abcdaaddef";
+	unordered_map<char, int> mmap;
+	string newstr = "";
+	for (auto& e : str)
+	{
+		if (mmap.find(e) == mmap.end())
+		{
+			//插入mmap
+			//mmap[e] = 1;
+			mmap.insert(make_pair(e, 1));
+			newstr += e;
+		}
+	}
+	cout << newstr << endl;
+	system("pause");
+	return 0;
+}
